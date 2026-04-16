@@ -4,7 +4,7 @@ import axios from 'axios';
 // This means all devices that load the frontend (localhost or 192.168.x.x)
 // will have their API calls proxied correctly through the Vite server.
 const api = axios.create({
-    baseURL: '/api',
+    baseURL: import.meta.env.VITE_API_URL + '/api',
     withCredentials: true,
 });
 
