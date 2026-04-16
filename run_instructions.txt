@@ -1,0 +1,54 @@
+========================================================================
+CAR DEALERSHIP MERN APP - QUICK START GUIDE
+========================================================================
+
+Before running the application, you MUST set up a few connection strings 
+and API keys in your environment file. 
+
+------------------------------------------------------------------------
+STEP 1: WHERE TO PUT YOUR API KEYS
+------------------------------------------------------------------------
+You have an environment file located at: 
+D:\Subjects_Languages\Languages\CAR\backend\.env
+
+Open this file. You will see some placeholder values. You must replace 
+them with your actual database and service credentials:
+
+1. MONGO_URI
+   - What it is: The cloud connection string to your MongoDB Atlas database.
+   - Where to get it: Create a free cluster at mongodb.com, click "Connect", 
+     choose "Drivers", and copy the connection string.
+
+2. SUPABASE_URL & SUPABASE_KEY
+   - What they are: Your Supabase project URL and public anon key for image storage.
+   - Where to get them: Go to supabase.com, create a project, go to 
+     Project Settings -> API, and copy the URL and anon/public key.
+
+3. JWT Keys (Optional but Recommended)
+   - Change the JWT_SECRET and JWT_REFRESH_SECRET to any long random strings 
+     for security.
+
+------------------------------------------------------------------------
+STEP 2: RUNNING THE BACKEND (Node/Express API)
+------------------------------------------------------------------------
+1. Open a new terminal.
+2. Navigate to the backend folder:
+   cd D:\Subjects_Languages\Languages\CAR\backend
+3. Since dependencies are already installed, just run:
+   npm run dev
+4. You should see "MongoDB Connected" and "Server running... on port 5000".
+
+------------------------------------------------------------------------
+STEP 3: RUNNING THE FRONTEND (Vite/React UI)
+------------------------------------------------------------------------
+1. Open a second, separate terminal window.
+2. Navigate to the frontend folder:
+   cd D:\Subjects_Languages\Languages\CAR\frontend
+3. Run the development server:
+   npm run dev
+4. Vite will start your frontend (typically at http://localhost:5173). 
+   Open that URL in your browser to view the app!
+
+========================================================================
+Note: Make sure BOTH terminals are running at the same time!
+========================================================================
