@@ -128,10 +128,10 @@ const CarInventory = () => {
                     ) : (
                         <>
                             <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.9rem' }}>
-                                Showing {cars.length} vehicle{cars.length !== 1 ? 's' : ''}
+                                Showing {cars?.length || 0} vehicle{cars?.length !== 1 ? 's' : ''}
                             </p>
                             <div className="grid-auto">
-                                {cars.map(car => (
+                                {Array.isArray(cars) && cars.map(car => (
                                     <CarCard key={car._id} car={car} />
                                 ))}
                             </div>

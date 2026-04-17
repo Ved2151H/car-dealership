@@ -14,7 +14,9 @@ const AdminDashboard = () => {
     const [newCar, setNewCar] = useState({
         brand: '', modelName: '', year: '', price: '',
         color: '', ownerType: '1st Hand', registrationNumber: '', images: '',
-        fuelType: 'Petrol'
+        fuelType: 'Petrol',
+        fsale_base: '',
+        fsale_active: false
     });
     const [imageFiles, setImageFiles] = useState([]);
     const [uploading, setUploading] = useState(false);
@@ -94,6 +96,10 @@ const AdminDashboard = () => {
                 price: Number(newCar.price),
                 techSpecs: {
                     fuelType: newCar.fuelType
+                },
+                flashSale: {
+                    fsale_base: Number(newCar.fsale_base) || 0,
+                    fsale_active: Boolean(newCar.fsale_active)
                 }
             };
 
@@ -104,7 +110,9 @@ const AdminDashboard = () => {
             setNewCar({
                 brand: '', modelName: '', year: '', price: '',
                 color: '', ownerType: '1st Hand', registrationNumber: '', images: '',
-                fuelType: 'Petrol'
+                fuelType: 'Petrol',
+                fsale_base: '',
+                fsale_active: false
             });
             setImageFiles([]);
             const fileInput = document.getElementById('carFiles');
@@ -220,7 +228,20 @@ const AdminDashboard = () => {
                                 required 
                             />
                             <FormInput label="Year" type="number" name="year" value={newCar.year} onChange={handleChange} required />
-                            <FormInput label="Price ($)" type="number" name="price" value={newCar.price} onChange={handleChange} required />
+                            <FormInput label="Base Price (₹)" type="number" name="price" value={newCar.price} onChange={handleChange} required />
+                            
+                            <FormInput label="Flash Sale Price (₹)" type="number" name="fsale_base" value={newCar.fsale_base} onChange={handleChange} />
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', height: '100%', alignSelf: 'center' }}>
+                                <input 
+                                    type="checkbox" 
+                                    id="fsale_active" 
+                                    name="fsale_active" 
+                                    checked={newCar.fsale_active} 
+                                    onChange={(e) => setNewCar({ ...newCar, fsale_active: e.target.checked })} 
+                                    style={{ width: '20px', height: '20px' }}
+                                />
+                                <label htmlFor="fsale_active" style={{ fontWeight: 600 }}>Activate Flash Sale</label>
+                            </div>
                             
                             <div style={{ gridColumn: '1 / -1' }}>
                                 <FormInput 
@@ -294,7 +315,18 @@ const AdminDashboard = () => {
                                         <td style={{ padding: '1rem' }}>{car.ownerType || '—'}</td>
                                         <td style={{ padding: '1rem' }}>{car.year}</td>
                                         <td style={{ padding: '1rem' }}>
-                                            ₹{car.price.toLocaleString('en-IN')}
+                                            {car.flashSale?.fsale_active ? (
+                                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                    <span style={{ fontSize: '0.8rem', textDecoration: 'line-through', color: 'var(--text-secondary)' }}>
+                                                        ₹{(car.price || 0).toLocaleString('en-IN')}
+                                                    </span>
+                                                    <span style={{ color: 'var(--success-color)', fontWeight: 600 }}>
+                                                        ₹{(car.flashSale.fsale_base || 0).toLocaleString('en-IN')}
+                                                    </span>
+                                                </div>
+                                            ) : (
+                                                `₹${(car?.price || 0).toLocaleString('en-IN')}`
+                                            )}
                                         </td>
                                         <td style={{ padding: '1rem' }}>
                                             <button onClick={() => navigate(`/admin/edit/${car._id}`)} className="btn-secondary" style={{ marginRight: '0.5rem', padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}>

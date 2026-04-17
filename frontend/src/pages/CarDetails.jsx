@@ -87,6 +87,7 @@ const CarDetails = () => {
                             <img 
                                 src={car.images[activeImage]} 
                                 alt={`${car.brand} ${car.modelName}`} 
+                                loading="lazy"
                                 style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '8px' }} 
                             />
                         ) : (
@@ -106,7 +107,7 @@ const CarDetails = () => {
                                     transition: 'all 0.3s ease'
                                 }}
                             >
-                                <img src={img} alt="thumbnail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <img src={img} alt="thumbnail" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </div>
                         ))}
                     </div>
@@ -119,8 +120,15 @@ const CarDetails = () => {
                         {car.year} • {car.color} • {car.ownerType}
                     </p>
                     
-                    <div style={{ fontSize: '3rem', fontWeight: 700, color: 'var(--accent-color)', marginBottom: '2rem' }}>
-                        ₹{car.price?.toLocaleString('en-IN')}
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', marginBottom: '2rem' }}>
+                        <div style={{ fontSize: '3rem', fontWeight: 700, color: 'var(--accent-color)' }}>
+                            ₹{(car?.flashSale?.fsale_active ? car.flashSale.fsale_base : car.price)?.toLocaleString('en-IN')}
+                        </div>
+                        {car?.flashSale?.fsale_active && (
+                            <div style={{ fontSize: '1.5rem', color: 'var(--text-secondary)', textDecoration: 'line-through' }}>
+                                ₹{car.price?.toLocaleString('en-IN')}
+                            </div>
+                        )}
                     </div>
 
                     <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
@@ -202,10 +210,10 @@ const CarDetails = () => {
                         <p><strong style={{ color: 'var(--text-primary)' }}>Model Name:</strong> {car.modelName || 'N/A'}</p>
                         <p><strong style={{ color: 'var(--text-primary)' }}>Owner:</strong> {car.ownerType || 'N/A'}</p>
                         <p><strong style={{ color: 'var(--text-primary)' }}>Colour:</strong> {car.color || 'N/A'}</p>
-                        <p><strong style={{ color: 'var(--text-primary)' }}>Chassis No:</strong> {car.registrationNumber || 'N/A'}</p>
-                        <p><strong style={{ color: 'var(--text-primary)' }}>Fuel Type:</strong> {car.techSpecs?.fuelType || 'N/A'}</p>
-                        <p><strong style={{ color: 'var(--text-primary)' }}>Year:</strong> {car.year || 'N/A'}</p>
-                        <p><strong style={{ color: 'var(--text-primary)' }}>Price:</strong> ₹{car.price?.toLocaleString('en-IN') || 'N/A'}</p>
+                        <p><strong style={{ color: 'var(--text-primary)' }}>Chassis No:</strong> {car?.registrationNumber || '—'}</p>
+                        <p><strong style={{ color: 'var(--text-primary)' }}>Fuel Type:</strong> {car?.techSpecs?.fuelType || '—'}</p>
+                        <p><strong style={{ color: 'var(--text-primary)' }}>Year:</strong> {car?.year || '—'}</p>
+                        <p><strong style={{ color: 'var(--text-primary)' }}>Price:</strong> ₹{(car?.flashSale?.fsale_active ? car.flashSale.fsale_base : car?.price)?.toLocaleString('en-IN') || '—'}</p>
                     </div>
                 </div>
             </div>

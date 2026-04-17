@@ -33,6 +33,7 @@ const CarCard = ({ car }) => {
           <img
             src={car.images[0]}
             alt={car.modelName}
+            loading="lazy"
             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           />
         ) : (
@@ -45,15 +46,25 @@ const CarCard = ({ car }) => {
           position: 'absolute',
           top: '0.75rem',
           right: '0.75rem',
-          background: 'var(--accent-color)',
+          background: car?.flashSale?.fsale_active ? 'var(--success-color)' : 'var(--accent-color)',
           color: 'white',
           padding: '0.2rem 0.65rem',
           borderRadius: '20px',
           fontWeight: 700,
           fontSize: '0.82rem',
           whiteSpace: 'nowrap',
+          boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
         }}>
-          ₹{car?.price?.toLocaleString('en-IN') || 'N/A'}
+          {car?.flashSale?.fsale_active ? (
+            <>
+              <span style={{ textDecoration: 'line-through', opacity: 0.8, fontSize: '0.7rem', marginRight: '0.35rem' }}>
+                ₹{(car?.price || 0).toLocaleString('en-IN')}
+              </span>
+              ₹{(car?.flashSale?.fsale_base || 0).toLocaleString('en-IN')}
+            </>
+          ) : (
+            `₹${(car?.price || 0).toLocaleString('en-IN')}`
+          )}
         </div>
       </div>
 

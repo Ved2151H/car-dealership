@@ -63,6 +63,12 @@ const carSchema = new mongoose.Schema({
     techSpecs: techSpecsSchema,
     sellerNotes: String,
     
+    // Flash Sale details
+    flashSale: {
+        fsale_base: { type: Number, default: 0 },
+        fsale_active: { type: Boolean, default: false }
+    },
+    
     // Admin reference
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,

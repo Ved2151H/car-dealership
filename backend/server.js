@@ -31,10 +31,10 @@ app.use(cors({
     credentials: true,
 }));
 
-// Rate Limiting to prevent brute-force attacks
+// Rate Limiting — relaxed for development
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 1000, // 1000 requests per minute
     standardHeaders: true,
     legacyHeaders: false,
 });

@@ -40,7 +40,9 @@ const EditCar = () => {
                 year: data.year || '',
                 price: data.price || '',
                 fuelType: data.techSpecs?.fuelType || 'Petrol',
-                imagesStr: data.images ? data.images.join(', ') : ''
+                imagesStr: data.images ? data.images.join(', ') : '',
+                fsale_base: data.flashSale?.fsale_base || '',
+                fsale_active: data.flashSale?.fsale_active || false
             });
         } catch (error) {
             console.error("Failed to load car details", error);
@@ -89,6 +91,10 @@ const EditCar = () => {
                 images: finalImages,
                 techSpecs: {
                     fuelType: car.fuelType
+                },
+                flashSale: {
+                    fsale_base: Number(car.fsale_base) || 0,
+                    fsale_active: Boolean(car.fsale_active)
                 }
             };
             
@@ -137,7 +143,20 @@ const EditCar = () => {
                             required 
                         />
                         <FormInput label="Year" type="number" name="year" value={car.year} onChange={handleChange} required />
-                        <FormInput label="Price ($)" type="number" name="price" value={car.price} onChange={handleChange} required />
+                        <FormInput label="Price (₹)" type="number" name="price" value={car.price} onChange={handleChange} required />
+                        
+                        <FormInput label="Flash Sale Price (₹)" type="number" name="fsale_base" value={car.fsale_base} onChange={handleChange} />
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', height: '100%', alignSelf: 'center' }}>
+                            <input 
+                                type="checkbox" 
+                                id="fsale_active" 
+                                name="fsale_active" 
+                                checked={car.fsale_active} 
+                                onChange={(e) => setCar({ ...car, fsale_active: e.target.checked })} 
+                                style={{ width: '20px', height: '20px' }}
+                            />
+                            <label htmlFor="fsale_active" style={{ fontWeight: 600 }}>Activate Flash Sale</label>
+                        </div>
                         
                         <div style={{ gridColumn: 'span 2' }}>
                             <FormInput 
