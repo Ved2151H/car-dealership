@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getImageUrl } from '../utils/imageUrl';
 
 const CarCard = ({ car }) => {
   const userStr = localStorage.getItem('user');
@@ -31,7 +32,7 @@ const CarCard = ({ car }) => {
       <div style={{ height: '200px', backgroundColor: 'var(--border-color)', position: 'relative', flexShrink: 0 }}>
         {car?.images?.length > 0 ? (
           <img
-            src={car.images[0]}
+            src={getImageUrl(car.images[0])}
             alt={car.modelName}
             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           />

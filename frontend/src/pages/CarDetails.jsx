@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import api from '../services/api';
+import { getImageUrl } from '../utils/imageUrl';
 
 const CarDetails = () => {
     const { id } = useParams();
@@ -85,7 +86,7 @@ const CarDetails = () => {
                     <div className="glass-panel" style={{ height: 'clamp(260px, 45vw, 500px)', padding: '1rem', marginBottom: '1rem', overflow: 'hidden' }}>
                         {car.images?.length > 0 ? (
                             <img 
-                                src={car.images[activeImage]} 
+                                src={getImageUrl(car.images[activeImage])} 
                                 alt={`${car.brand} ${car.modelName}`} 
                                 style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '8px' }} 
                             />
@@ -106,7 +107,7 @@ const CarDetails = () => {
                                     transition: 'all 0.3s ease'
                                 }}
                             >
-                                <img src={img} alt="thumbnail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <img src={getImageUrl(img)} alt="thumbnail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </div>
                         ))}
                     </div>
