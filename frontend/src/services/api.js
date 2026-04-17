@@ -5,7 +5,7 @@ import axios from 'axios';
 // will have their API calls proxied correctly through the Vite server.
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL + '/api',
-    withCredentials: true,
+    
 });
 
 // Attach JWT access token from localStorage to every request
@@ -35,7 +35,7 @@ api.interceptors.response.use(
             originalRequest._retry = true;
             try {
                 // Relative URL — also proxied through Vite
-                const res = await axios.post('/api/auth/refresh', {}, { withCredentials: true });
+                const res = await api.post('/auth/refresh');
                 if (res.status === 200) {
                     const userStr = localStorage.getItem('user');
                     if (userStr) {
