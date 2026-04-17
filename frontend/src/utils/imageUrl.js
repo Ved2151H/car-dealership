@@ -13,9 +13,9 @@ export const getImageUrl = (path) => {
   }
 
   const baseUrl = import.meta.env.VITE_API_URL || '';
-  
+
   // Ensure we don't have double slashes if the path already starts with one
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  
+
   return `${baseUrl}${cleanPath}`;
 };
